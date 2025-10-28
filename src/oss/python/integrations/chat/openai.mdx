@@ -141,7 +141,7 @@ llm = ChatOpenAI(model="gpt-4.1-mini", stream_usage=True)  # [!code highlight]
 <Info>
     **Azure OpenAI v1 API support**
 
-    As of `langchain-openai>=0.3.0`, `ChatOpenAI` can be used directly with Azure OpenAI endpoints using the new [v1 API](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/api-version-lifecycle?tabs=python#next-generation-api-1). This provides a unified way to use OpenAI models whether hosted on OpenAI or Azure.
+    As of `langchain-openai>=1.0.1`, `ChatOpenAI` can be used directly with Azure OpenAI endpoints using the new [v1 API](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/api-version-lifecycle?tabs=python#next-generation-api-1). This provides a unified way to use OpenAI models whether hosted on OpenAI or Azure.
 
     For the traditional Azure-specific implementation, continue to use [`AzureChatOpenAI`](/oss/integrations/chat/azure_chat_openai/).
 </Info>
@@ -151,6 +151,7 @@ llm = ChatOpenAI(model="gpt-4.1-mini", stream_usage=True)  # [!code highlight]
 To use `ChatOpenAI` with Azure OpenAI, set the `base_url` to your Azure endpoint with `/openai/v1/` appended:
 
 :::python
+
 ```python
 from langchain_openai import ChatOpenAI
 
@@ -163,6 +164,7 @@ llm = ChatOpenAI(
 response = llm.invoke("Hello, how are you?")
 print(response.content)
 ```
+
 :::
 
 ### Using Azure OpenAI with Microsoft Entra ID
@@ -170,6 +172,7 @@ print(response.content)
 The v1 API adds native support for [Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/managed-identity) (formerly Azure AD) authentication with automatic token refresh. Pass a token provider callable to the `api_key` parameter:
 
 :::python
+
 ```python
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from langchain_openai import ChatOpenAI
@@ -194,6 +197,7 @@ messages = [
 response = llm.invoke(messages)
 print(response.content)
 ```
+
 :::
 
 The token provider is a callable that automatically retrieves and refreshes authentication tokens, eliminating the need to manually manage token expiration.
@@ -206,14 +210,14 @@ To use Microsoft Entra ID authentication, install the Azure Identity library:
 ```bash
 pip install azure-identity
 ```
+
 </Tip>
 
 You can also pass a token provider callable to the `api_key` parameter when using
 asynchronous functions. You must import DefaultAzureCredential from `azure.identity.aio`:
 
-Beyond Azure token providers, `ChatOpenAI` supports any callable that returns an API key. This is useful for custom authentication schemes or dynamic key rotation:
-
 :::python
+
 ```python
 from azure.identity.aio import DefaultAzureCredential
 from langchain_openai import ChatOpenAI
@@ -230,6 +234,7 @@ llm_async = ChatOpenAI(
 # Use async methods when using async callable
 response = await llm_async.ainvoke("Hello!")
 ```
+
 :::
 
 <Note>

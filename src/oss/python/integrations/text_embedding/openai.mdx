@@ -190,12 +190,14 @@ To use Microsoft Entra ID authentication, install the Azure Identity library:
 ```bash
 pip install azure-identity
 ```
+
 </Tip>
 
 You can also pass a token provider callable to the `api_key` parameter when using
 asynchronous functions. You must import DefaultAzureCredential from `azure.identity.aio`:
 
 :::python
+
 ```python
 from azure.identity.aio import DefaultAzureCredential
 from langchain_openai import ChatOpenAI
@@ -213,6 +215,7 @@ vectors = await embeddings_async.aembed_documents(["Hello", "World"])
 # Use async methods when using async callable
 response = await llm_async.ainvoke("Hello!")
 ```
+
 :::
 
 <Note>
