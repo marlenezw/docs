@@ -18,12 +18,6 @@ You can find information about OpenAI's latest models, their costs, context wind
     `ChatOpenAI` is fully compatible with OpenAI's (legacy) [Chat Completions API](https://platform.openai.com/docs/guides/completions). If you are looking to connect to other model providers that support the Chat Completions API, you can do so – see [instructions](/oss/integrations/chat#chat-completions-api).
 </Note>
 
-<Info>
-    **OpenAI models hosted on Azure**
-
-    Note that certain OpenAI models can also be accessed via the [Microsoft Azure platform](https://azure.microsoft.com/en-us/products/ai-foundry/models/openai/). To use the Azure OpenAI service use the [`AzureChatOpenAI`](/oss/integrations/chat/azure_chat_openai/) integration.
-</Info>
-
 ## Overview
 
 ### Integration details
@@ -146,11 +140,9 @@ llm = ChatOpenAI(model="gpt-4.1-mini", stream_usage=True)  # [!code highlight]
     For the traditional Azure-specific implementation, continue to use [`AzureChatOpenAI`](/oss/integrations/chat/azure_chat_openai/).
 </Info>
 
-### Using Azure OpenAI v1 API with API Key
+<Accordion title="Using Azure OpenAI v1 API with API Key">
 
 To use `ChatOpenAI` with Azure OpenAI, set the `base_url` to your Azure endpoint with `/openai/v1/` appended:
-
-:::python
 
 ```python
 from langchain_openai import ChatOpenAI
@@ -164,14 +156,11 @@ llm = ChatOpenAI(
 response = llm.invoke("Hello, how are you?")
 print(response.content)
 ```
+</Accordion>
 
-:::
-
-### Using Azure OpenAI with Microsoft Entra ID
+<Accordion title="Using Azure OpenAI with Microsoft Entra ID">
 
 The v1 API adds native support for [Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/managed-identity) (formerly Azure AD) authentication with automatic token refresh. Pass a token provider callable to the `api_key` parameter:
-
-:::python
 
 ```python
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
@@ -198,8 +187,6 @@ response = llm.invoke(messages)
 print(response.content)
 ```
 
-:::
-
 The token provider is a callable that automatically retrieves and refreshes authentication tokens, eliminating the need to manually manage token expiration.
 
 <Tip>
@@ -216,7 +203,6 @@ pip install azure-identity
 You can also pass a token provider callable to the `api_key` parameter when using
 asynchronous functions. You must import DefaultAzureCredential from `azure.identity.aio`:
 
-:::python
 
 ```python
 from azure.identity.aio import DefaultAzureCredential
@@ -233,11 +219,11 @@ llm_async = ChatOpenAI(
 response = await llm_async.ainvoke("Hello!")
 ```
 
-:::
-
 <Note>
 When using an async callable for the API key, you must use async methods (`ainvoke`, `astream`, etc.). Sync methods will raise an error.
 </Note>
+
+</Accordion>
 
 ## Tool calling
 
