@@ -223,8 +223,6 @@ from azure.identity.aio import DefaultAzureCredential
 from langchain_openai import ChatOpenAI
 
 credential = DefaultAzureCredential()
-...
-await credential.close()
 
 llm_async = ChatOpenAI(
     model="gpt-5-nano",
