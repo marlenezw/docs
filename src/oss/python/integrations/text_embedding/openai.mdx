@@ -213,7 +213,6 @@ embeddings_async = OpenAIEmbeddings(
 vectors = await embeddings_async.aembed_documents(["Hello", "World"])
 
 # Use async methods when using async callable
-response = await llm_async.ainvoke("Hello!")
 ```
 
 :::
